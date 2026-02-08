@@ -1,21 +1,26 @@
 # Atlante Illustrato dei Promessi Sposi
 
-Mappa interattiva delle illustrazioni dell'edizione Quarantana dei Promessi Sposi di Alessandro Manzoni.
+L'Atlante Illustrato è un prototipo di **WebGIS narrativo** per l’esplorazione geografica e diacronica di illustrazioni e metadati relativi a:
 
-## Descrizione del Progetto
+* *I promessi sposi* (edizione Quarantana)
+* *Storia della colonna infame*
 
-L'atlante presenta una visualizzazione geografica e diacronica delle illustrazioni contenute nell'edizione del 1840 de "I promessi sposi" e della "Storia della colonna infame", permettendo di esplorare la dimensione spaziale dell'opera manzoniana attraverso le rappresentazioni iconografiche del testo.
+Il progetto integra **mappa interattiva**, **timeline narrativa**, **filtri avanzati** e **visualizzazione IIIF** (Mirador), con una particolare attenzione alla rappresentazione **aggregata e non riduzionista** dello spazio letterario.
 
-## Caratteristiche Principali
+---
 
-- **Mappa Interattiva**: Visualizzazione geografica dei luoghi manzoniani
-- **Timeline Dinamica**: Navigazione cronologica per capitoli
-- **Filtri Avanzati**: Ricerca per capitoli, luoghi, autori, personaggi e pagine
-- **Spider Graph**: Visualizzazione delle connessioni tra elementi dello stesso luogo
-- **Card Informative**: Dettagli completi per ogni elemento
-- **Visualizzazione IIIF**: Integrazione con Mirador 3 per esplorare le pagine dei manoscritti ad alta risoluzione
-- **Breadcrumb System**: Gestione filtri attivi con URL persistenti
-- **Design Responsivo**: Ottimizzato per desktop e dispositivi mobili
+## Funzionalità principali
+
+* **Mappa Leaflet** con basemap CARTO
+* **Aggregazione per luogo** (cerchi D3 scalati per occorrenze)
+* **Simulazione fisica** (collisioni, repulsione, ancoraggio)
+* **Spider graph**: esplosione di un luogo nei singoli item
+* **Timeline narrativa** per capitoli e sequenze
+* **Filtri** per capitolo, luogo, autore, personaggio + range di pagine
+* **Permalink**: stato dell’interfaccia serializzato nell’URL
+* **IIIF Viewer (Mirador)** per l’accesso diretto ai facsimili
+
+---
 
 ## Fonte dei dati
 
@@ -30,6 +35,8 @@ I dati sono stati arricchiti con metadati **IIIF (International Image Interopera
 - Presentation API 2.1: [https://iiif.io/api/presentation/2.1/](https://iiif.io/api/presentation/2.1/)
 - Image API 2.0: [https://iiif.io/api/image/2.0/](https://iiif.io/api/image/2.0/)
 
+---
+
 ## Fonte testuale
 
 Le illustrazioni fanno riferimento all'edizione:
@@ -43,8 +50,12 @@ Le illustrazioni fanno riferimento all'edizione:
 
 **Scheda completa**: https://dlrc.ficlit.unibo.it/s/lib/item/232045
 
+---
+
 ### Sistema di Fallback
 Se il dataset principale non dovesse caricarsi, l'applicazione caricherà automaticamente dati di esempio per mantenere tutte le funzionalità operative.
+
+---
 
 ## Tecnologie Utilizzate
 
@@ -55,22 +66,43 @@ Se il dataset principale non dovesse caricarsi, l'applicazione caricherà automa
 - **Dati**: GeoJSON con metadati IIIF
 - **Stile**: CSS Grid, Flexbox, Gradients
 
-## Struttura del Progetto
+## Struttura del progetto
+
+La seguente struttura è **quella attesa per il deploy su GitHub Pages** (repository root):
 
 ```
 atlante-manzoni/
-├── index.html              # Pagina principale
+├── index.html
+├── README.md
 ├── css/
-│   └── styles.css          # Stili principali
+│   ├── 01-base.css
+│   ├── 02-layout.css
+│   ├── 03-timeline.css
+│   ├── 04-controls.css
+│   ├── 05-visualization.css
+│   └── 06-mirador.css
 ├── js/
-│   └── app.js              # Logica applicazione
+│   ├── main.js              # entrypoint (ES module)
+│   ├── config.js            # stato globale + init Leaflet
+│   ├── data.js              # load e processing del GeoJSON
+│   ├── eventHandlers.js     # listeners UI e mappa
+│   ├── fabMenu.js           # FAB menu e pannelli
+│   ├── filters.js           # filtri + breadcrumbs + permalink
+│   ├── cityAreas.js         # cerchi aggregati per luogo
+│   ├── physics.js           # D3 force simulation
+│   ├── spiderGraph.js       # visualizzazione spider
+│   ├── timeline.js          # timeline narrativa
+│   ├── itemCard.js          # card item + Mirador
+│   ├── mirador.js           # configurazione viewer IIIF
+│   └── utils.js             # funzioni di supporto
 ├── data/
-│   └── dl_quarantana.geojson # Dati geografici
-├── assets/
-│   └── AtlanteManzoni_Logo.png # Logo progetto
-├── README.md               # Documentazione
-└── .gitignore             # File Git ignore
+│   └── dl_quarantana.geojson
+└── assets/
+    ├── AtlanteManzoni_Logo.png
+    └── AtlanteManzoni_Miniatura.png
 ```
+
+---
 
 ## Installazione e Avvio
 
@@ -78,30 +110,21 @@ atlante-manzoni/
 - Server web locale (per servire i file statici)
 - Browser moderno con supporto ES6+
 
-### Avvio Rapido
+L’applicazione carica i dati via `fetch()`; **non funziona** aprendo `index.html` con doppio click.
 
-1. **Clona il repository**:
-```bash
-git clone https://github.com/your-username/atlante-manzoni.git
-cd atlante-manzoni
-```
+### Opzione A — Python
 
-2. **Avvia un server locale**:
 ```bash
-# Con Python 3
 python -m http.server 8000
-
-# Con Node.js (se hai http-server installato)
-npx http-server
-
-# Con PHP
-php -S localhost:8000
+# apri http://localhost:8000
 ```
 
-3. **Apri nel browser**:
-```
-http://localhost:8000
-```
+### Opzione B — VS Code Live Server
+
+* Installa l’estensione *Live Server*
+* Click destro su `index.html` → *Open with Live Server*
+
+---
 
 ## Formato Dati
 
@@ -137,6 +160,8 @@ Il progetto utilizza file GeoJSON arricchiti con metadati IIIF:
 }
 ```
 
+---
+
 ## Utilizzo
 
 ### Navigazione Base
@@ -161,6 +186,8 @@ Il progetto utilizza file GeoJSON arricchiti con metadati IIIF:
 - **Ordinamento**: Elementi ordinati per sequenza, pagina, titolo o tipo
 - **Interazione**: Clic sui nodi per aprire card dettaglio
 
+---
+
 ## Roadmap
 
 - [ ] Sistema di ricerca full-text
@@ -170,13 +197,13 @@ Il progetto utilizza file GeoJSON arricchiti con metadati IIIF:
 - [ ] API REST per i dati
 - [ ] Versione mobile app
 
+---
+
 ## Crediti
 
 Progetto sviluppato utilizzando i dati della Digital Library del Dipartimento di Filologia Classica e Italianistica dell'Università di Bologna.
 
-## Licenza
-
-Questo progetto è rilasciato sotto licenza MIT. Vedi il file `LICENSE` per dettagli.
+---
 
 ## Ringraziamenti
 
