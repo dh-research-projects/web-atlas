@@ -1,0 +1,285 @@
+/* ==========================================
+   ATLANTE ILLUSTRATO DEI PROMESSI SPOSI
+   02 - LAYOUT & VIEWPORT
+   
+   Contiene:
+   - Logo del progetto (states: normale, minimized)
+   - Viewport state management (busy states)
+   - Responsive layout adjustments
+   - Place indicator (etichetta floating laterale)
+   ========================================== */
+
+/* ==========================================
+   PROJECT LOGO
+   ========================================== */
+
+.project-logo {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  height: 120px;
+  width: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  z-index: 1150;
+  transition: all 0.4s ease;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.project-logo:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(255, 165, 0, 0.4);
+}
+
+.project-logo img {
+  height: 100%;
+  width: auto;
+  border-radius: 8px;
+  object-fit: contain;
+  display: block;
+  transition: all 0.4s ease;
+}
+
+/* Logo minimized state */
+.project-logo.minimized {
+  height: 60px;
+  width: 60px;
+  border-radius: 30px;
+  padding: 0;
+}
+
+.project-logo.minimized img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transform: scale(1.6);
+}
+
+/* ==========================================
+   PROJECT INFO MODAL
+   ========================================== */
+
+.project-info-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+}
+
+.project-info-modal.active {
+  display: flex;
+}
+
+.project-info-content {
+  background: linear-gradient(135deg, #1d2b2f 0%, #243339 100%);
+  border-radius: 20px;
+  padding: 40px;
+  max-width: 600px;
+  width: 100%;
+  position: relative;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  animation: modalFadeIn 0.4s ease;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.project-info-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #ffa500;
+  border: none;
+  color: #1d2b2f;
+  font-size: 24px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-info-close:hover {
+  background: #ffb933;
+  transform: rotate(90deg);
+}
+
+.project-info-content h1 {
+  color: #ffa500;
+  font-size: 28px;
+  margin: 0 0 15px 0;
+  font-weight: bold;
+}
+
+.project-info-content .subtitle {
+  color: #e0e0e0;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0 0 20px 0;
+}
+
+.project-info-content .description {
+  color: #b8cfe0;
+  font-size: 15px;
+  line-height: 1.7;
+  margin: 0 0 25px 0;
+}
+
+.hint-box {
+  background: rgba(255, 165, 0, 0.15);
+  border-left: 4px solid #ffa500;
+  border-radius: 8px;
+  padding: 15px;
+  margin: 0 0 30px 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.hint-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.hint-text {
+  color: #e0e0e0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.hint-text strong {
+  color: #ffa500;
+}
+
+.start-btn {
+  background: linear-gradient(135deg, #ffa500, #ff8c00);
+  color: #1d2b2f;
+  border: none;
+  border-radius: 12px;
+  padding: 15px 40px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(255, 165, 0, 0.3);
+}
+
+.start-btn:hover {
+  background: linear-gradient(135deg, #ffb933, #ffa500);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 165, 0, 0.5);
+}
+
+@media (max-width: 768px) {
+  .project-info-content {
+    padding: 30px 20px;
+  }
+  
+  .project-info-content h1 {
+    font-size: 24px;
+  }
+}
+
+/* ==========================================
+   VIEWPORT STATE MANAGEMENT
+   ========================================== */
+
+.viewport-busy .project-logo {
+  height: 60px;
+  width: 60px;
+  border-radius: 30px;
+  padding: 0;
+}
+
+.viewport-busy .project-logo img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transform: scale(1.6);
+}
+
+.viewport-busy .fab-container {
+  bottom: 10px;
+  left: 10px;
+}
+
+/* ==========================================
+   PLACE INDICATOR (etichetta laterale)
+   ========================================== */
+
+.place-indicator {
+  position: fixed;
+  top: 50%;
+  right: 30px;
+  background: linear-gradient(135deg, #ffa500, #ff8c00);
+  color: #1d2b2f;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-weight: bold;
+  font-size: 16px;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(255, 165, 0, 0.4);
+  transform: translateY(-50%) translateX(200%);
+  transition: transform 0.4s ease;
+  z-index: 1050;
+  backdrop-filter: blur(10px);
+}
+
+.place-indicator.visible {
+  transform: translateY(-50%) translateX(0);
+}
+
+.place-indicator::before {
+  content: '';
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 8px solid #ffa500;
+  transform: translateY(-50%);
+}
+
+/* ==========================================
+   RESPONSIVE LAYOUT
+   ========================================== */
+
+@media (max-width: 768px) {
+  .project-logo {
+    height: 80px;
+  }
+  
+  .project-logo.minimized {
+    height: 50px;
+    width: 50px;
+    padding: 0;
+  }
+  
+  .viewport-busy .fab-container {
+    transform: scale(0.8);
+  }
+}

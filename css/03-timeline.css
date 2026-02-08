@@ -1,0 +1,192 @@
+/* ==========================================
+   ATLANTE ILLUSTRATO DEI PROMESSI SPOSI
+   03 - TIMELINE
+   
+   Contiene:
+   - Container timeline principale
+   - Timeline grid e layout
+   - Chapter groups
+   - Timeline points (pallini)
+   - Animazioni e stati (active, hidden, highlighted)
+   - Timeline stats
+   - Scrollbar personalizzata
+   ========================================== */
+
+/* ==========================================
+   TIMELINE CONTAINER
+   ========================================== */
+
+#timeline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 0;
+  overflow: hidden;
+  background: linear-gradient(180deg, #1d2b2f 0%, #243339 100%);
+  border-top: 2px solid #333;
+  padding: 0;
+  z-index: 1000;
+  transition: height 0.4s ease, padding 0.4s ease;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+}
+
+#timeline.active {
+  height: 280px;
+  padding: 20px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* ==========================================
+   TIMELINE STATS
+   ========================================== */
+
+.timeline-stats {
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: #a0d4f3;
+  font-weight: bold;
+}
+
+/* ==========================================
+   TIMELINE GRID
+   ========================================== */
+
+.timeline-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 20px;
+  max-height: 240px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 10px;
+}
+
+/* ==========================================
+   CHAPTER GROUPS
+   ========================================== */
+
+.chapter-group {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+  padding: 12px;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.chapter-group:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 165, 0, 0.3);
+}
+
+.chapter-group.hidden {
+  display: none;
+}
+
+/* Chapter label */
+.chapter-label {
+  font-weight: bold;
+  color: #a0d4f3;
+  font-size: 0.75em;
+  text-align: center;
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.3s ease;
+}
+
+.chapter-label.active {
+  color: #ffd700;
+}
+
+.chapter-group-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  align-items: center;
+  min-height: 40px;
+}
+
+/* ==========================================
+   TIMELINE POINTS
+   ========================================== */
+
+.timeline-point {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #eee;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  border: 2px solid transparent;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.timeline-point:hover {
+  transform: scale(1.4);
+  border-color: rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+  z-index: 10;
+}
+
+.timeline-point.active {
+  transform: scale(1.3);
+  border-color: #ffd700;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+}
+
+.timeline-point.hidden {
+  display: none;
+}
+
+.timeline-point.highlighted {
+  animation: pulseGlow 1.5s infinite;
+  border-color: #ffa500;
+  transform: scale(1.2);
+  z-index: 5;
+}
+
+/* ==========================================
+   ANIMATIONS
+   ========================================== */
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(255, 165, 0, 0.8);
+  }
+  50% {
+    box-shadow: 0 0 25px rgba(255, 165, 0, 0.4);
+  }
+}
+
+@keyframes bounceIn {
+  0% { transform: scale(0); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* ==========================================
+   SCROLLBAR PERSONALIZZATA
+   ========================================== */
+
+.timeline-grid::-webkit-scrollbar {
+  width: 8px;
+}
+
+.timeline-grid::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.1);
+  border-radius: 4px;
+}
+
+.timeline-grid::-webkit-scrollbar-thumb {
+  background: rgba(255,165,0,0.6);
+  border-radius: 4px;
+}
+
+.timeline-grid::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,165,0,0.8);
+}

@@ -1,0 +1,379 @@
+/* ==========================================
+   ATLANTE ILLUSTRATO DEI PROMESSI SPOSI
+   04 - CONTROLS & FILTERS
+   
+   Contiene:
+   - FAB menu (Floating Action Button)
+   - FAB spheres (bottoni circolari)
+   - Side panels (timeline e filters)
+   - Dropdowns e selettori
+   - Page range sliders
+   - Breadcrumb filter area
+   - Filter chips
+   ========================================== */
+
+/* ==========================================
+   FAB CONTAINER
+   ========================================== */
+
+.fab-container {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: 1100;
+  transition: all 0.4s ease;
+}
+
+.fab-container.minimized {
+  bottom: 10px;
+  left: 10px;
+}
+
+.fab-container.timeline-open {
+  bottom: 300px;
+}
+
+.fab-container.filters-open {
+  bottom: 320px;
+}
+
+.fab-main {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+/* ==========================================
+   FAB SPHERES (bottoni circolari)
+   ========================================== */
+
+.fab-sphere {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+  position: relative;
+}
+
+#fab-toggle {
+  background: linear-gradient(135deg, #ffa500, #ff8c00);
+  color: #1d2b2f;
+}
+
+#fab-timeline {
+  background: linear-gradient(135deg, #4d88ff, #3366ff);
+  color: white;
+}
+
+#fab-filters {
+  background: linear-gradient(135deg, #66a3ff, #4d88ff);
+  color: white;
+}
+
+.fab-sphere:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+}
+
+.fab-sphere.active {
+  background: linear-gradient(135deg, #ffd700, #ffcc00);
+  color: #1d2b2f;
+}
+
+/* ==========================================
+   SIDE PANELS
+   ========================================== */
+
+.fab-panel {
+  position: absolute;
+  left: 60px;
+  bottom: 0;
+  background: rgba(43, 59, 69, 0.95);
+  backdrop-filter: blur(10px);
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 280px;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  animation: slideIn 0.3s ease;
+}
+
+.fab-panel.visible {
+  display: flex;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Panel buttons */
+.fab-panel-btn {
+  background: linear-gradient(135deg, #ffa500, #ff8c00);
+  color: #1d2b2f;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.fab-panel-btn:hover {
+  background: linear-gradient(135deg, #ffb933, #ffa500);
+  transform: translateY(-2px);
+}
+
+.fab-panel-btn.active {
+  background: linear-gradient(135deg, #ffd700, #ffcc00);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+.fab-panel-btn.reset {
+  background: linear-gradient(135deg, #ff6b6b, #ff5252);
+  color: white;
+}
+
+.fab-panel-btn.reset:hover {
+  background: linear-gradient(135deg, #ff8787, #ff6b6b);
+}
+
+/* ==========================================
+   DROPDOWNS
+   ========================================== */
+
+.fab-dropdown {
+  width: 100%;
+  padding: 12px 15px;
+  background: white;
+  color: #1d2b2f;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.fab-dropdown:hover {
+  border-color: #66a3ff;
+  background: #f8f9fa;
+}
+
+.fab-dropdown:focus {
+  outline: none;
+  border-color: #66a3ff;
+  box-shadow: 0 0 0 3px rgba(102, 163, 255, 0.2);
+}
+
+/* ==========================================
+   PAGE RANGE SLIDERS
+   ========================================== */
+
+.page-slider-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 0;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  margin-top: 10px;
+}
+
+.page-slider-label {
+  color: #a0d4f3;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.page-slider {
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(102, 163, 255, 0.2);
+  outline: none;
+}
+
+.page-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffa500, #ff8c00);
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+.page-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 12px rgba(255, 165, 0, 0.5);
+}
+
+.page-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ffa500, #ff8c00);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  transition: all 0.3s ease;
+}
+
+.page-slider::-moz-range-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 12px rgba(255, 165, 0, 0.5);
+}
+
+.page-range-display {
+  color: #ffa500;
+  font-weight: bold;
+  text-align: center;
+  font-size: 14px;
+}
+
+/* ==========================================
+   BREADCRUMB FILTER AREA
+   ========================================== */
+
+.breadcrumb-container {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(43, 59, 69, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 25px;
+  padding: 10px 20px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+  z-index: 1200;
+  display: none;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-width: calc(80vw - 160px);
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.breadcrumb-container.visible {
+  display: flex;
+}
+
+.breadcrumb-label {
+  color: #a0d4f3;
+  font-size: 11px;
+  font-weight: bold;
+  margin-right: 5px;
+}
+
+/* ==========================================
+   FILTER CHIPS
+   ========================================== */
+
+.filter-chip {
+  background: linear-gradient(135deg, #ffa500, #ff8c00);
+  color: #1d2b2f;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  animation: slideIn 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 165, 0, 0.3);
+}
+
+.filter-chip-remove {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.filter-chip-remove:hover {
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(1.1);
+}
+
+/* ==========================================
+   RESPONSIVE CONTROLS
+   ========================================== */
+
+@media (max-width: 768px) {
+  .fab-container.minimized {
+    bottom: 20px;
+    left: 20px;
+    transform: scale(0.8);
+  }
+  
+  .fab-panel {
+    position: absolute;
+    left: 60px;
+    bottom: 0;
+    right: auto;
+    max-width: calc(100vw - 120px);
+    min-width: 200px;
+    width: auto;
+  }
+  
+  #filters-panel {
+    max-height: 60vh;
+    overflow-y: auto;
+    max-width: calc(100vw - 120px);
+  }
+  
+  .fab-main > div:nth-child(2) .fab-panel,
+  .fab-main > div:nth-child(3) .fab-panel {
+    left: 60px;
+    right: auto;
+    transform: none;
+  }
+  
+  .breadcrumb-container {
+    top: 90px;
+    max-width: calc(100vw - 40px);
+    left: 20px;
+    transform: none;
+  }
+  
+  .breadcrumb-container.logo-minimized {
+    top: 70px;
+  }
+}
+
+@media (max-width: 480px) {
+  .fab-panel {
+    left: 50px;
+    max-width: calc(100vw - 90px);
+    min-width: 180px;
+  }
+}
