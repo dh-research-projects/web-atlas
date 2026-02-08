@@ -11,9 +11,14 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
   
   <!-- Project CSS -->
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/01-base.css" />
+  <link rel="stylesheet" href="css/02-layout.css" />
+  <link rel="stylesheet" href="css/03-timeline.css" />
+  <link rel="stylesheet" href="css/04-controls.css" />
+  <link rel="stylesheet" href="css/05-visualization.css" />
+  <link rel="stylesheet" href="css/06-mirador.css" />
 
-<!-- Mirador 3 IIIF Viewer -->
+  <!-- Mirador 3 IIIF Viewer -->
   <script src="https://unpkg.com/mirador@latest/dist/mirador.min.js"></script>
 </head>
 
@@ -90,7 +95,22 @@
 
   <div id="place-indicator" class="place-indicator"></div>
 
-    <!-- Mirador Modal Overlay -->
+  <!-- Project Info Modal -->
+  <div id="project-info-modal" class="project-info-modal">
+    <div class="project-info-content">
+      <button id="project-info-close" class="project-info-close" aria-label="Chiudi">✕</button>
+      <h1>Atlante Illustrato dei Promessi Sposi</h1>
+      <p class="subtitle">Una mappa interattiva per esplorare i luoghi e le illustrazioni dell'opera di Alessandro Manzoni.</p>
+      <p class="description">Naviga tra i capitoli, filtra per luoghi e personaggi, e scopri le connessioni geografiche della narrazione.</p>
+      <div class="hint-box">
+        <span class="hint-icon">💡</span>
+        <span class="hint-text"><strong>Suggerimento:</strong> Clicca sui cerchi colorati sulla mappa per vedere i dettagli delle illustrazioni</span>
+      </div>
+      <button id="start-exploration" class="start-btn">Inizia l'esplorazione</button>
+    </div>
+  </div>
+
+  <!-- Mirador Modal Overlay -->
   <div id="mirador-modal" class="mirador-modal">
     <div class="mirador-modal-header">
       <h3 id="mirador-title">Esplora il manoscritto</h3>
@@ -103,7 +123,6 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   
-  <!-- Project JS -->
-  <script src="js/app.js"></script>
+  <script type="module" src="js/main.js"></script>
 </body>
 </html>
